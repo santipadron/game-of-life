@@ -17,7 +17,11 @@ def rand_state(width, height):
 
     for i in range(height):
         for j in range(width):
-            board[i][j] = r.randint(0,1)
+            num = r.random()
+            if num > 0.9:
+                board[i][j] = 1
+            else:
+                board[i][j] = 0
 
     return board
 
@@ -40,8 +44,8 @@ def render(board_state):
 
 # testing
 
-state_d = dead_state(20,20)
-state_r = rand_state(20, 20)
+state_d = dead_state(20,30)
+state_r = rand_state(20, 30)
 
 print(state_d)
 print(state_r)
