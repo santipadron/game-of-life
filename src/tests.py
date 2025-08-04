@@ -49,4 +49,30 @@ if __name__ == "__main__":
         [0,0,0]
     ]
     test_print(2, init_st2, exp_st2)
+    
+    # test 3: live cells with more than 3 neighbors
+    init_st3 = [
+        [1,1,1],
+        [1,1,1],
+        [1,1,1]
+    ]
+    exp_st3 = [
+        [1,0,1],
+        [0,0,0],
+        [1,0,1]
+    ]
+    test_print(3, init_st3, exp_st3)
+
+    # test 4: multiple rules at once
+    init_st4 = [
+        [1,0,1],
+        [0,1,1],
+        [1,0,1]
+    ]
+    exp_st4 = [
+        [0,0,1],
+        [1,0,1],
+        [0,0,1]
+    ]
+    test_print(4, init_st4, exp_st4)
 
