@@ -78,7 +78,7 @@ def next_board_state(board_state):
             next_state = 0
 
             # Count neighbors
-            neighbour_count = count_neighbors(i, j)
+            neighbor_count = count_neighbors(i, j)
 
             # Check rules
             if (curr_state == 1) and (neighbor_count <= 1 or neighbor_count > 3):
@@ -95,13 +95,13 @@ def next_board_state(board_state):
 
 
 # testing
+if __name__ == "__main__":
+    state_d = dead_state(50,25)
+    state_r = rand_state(50, 25)
 
-state_d = dead_state(50,25)
-state_r = rand_state(50, 25)
-
-print(state_d)
-print(state_r)
-print('\u2588')
-render(state_d)
-render(state_r)
+    print(state_d)
+    print(state_r)
+    print('\u2588')
+    render(state_d)
+    render(state_r)
 
