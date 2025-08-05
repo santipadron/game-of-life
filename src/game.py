@@ -2,6 +2,7 @@
 ## By Santiago Padron
 
 import random as r
+import time
 
 def dead_state(width, height):
     board = []
@@ -27,19 +28,20 @@ def rand_state(width, height):
 
 
 def render(board_state):
-    print(" " + "-"*len(board_state[0])*2 + " ")
+#    print(" " + "-"*len(board_state[0])*2 + " ")
 
     for row in board_state:
-        line = "|"
+#        line = "|"
+        line = ""
         for col in row:
             if (col == 1):
                 line += "\u2588" * 2
             else:
                 line += "  "
-        line += "|"
+#        line += "|"
         print(line)
 
-    print(" " + "-"*len(board_state[0])*2 + " ")
+#    print(" " + "-"*len(board_state[0])*2 + " ")
 
 
 def next_board_state(board_state):
@@ -94,14 +96,14 @@ def next_board_state(board_state):
     return updated_board_state
 
 
-# testing
+# run the game
 if __name__ == "__main__":
-    state_d = dead_state(50,25)
-    state_r = rand_state(50, 25)
+    board = rand_state(60, 30)
+    render(board)
 
-    print(state_d)
-    print(state_r)
-    print('\u2588')
-    render(state_d)
-    render(state_r)
+    while True:
+        board = next_board_state(board)
+        render(board)
+        time.sleep(0.2)
+
 
