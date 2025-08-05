@@ -3,6 +3,7 @@
 
 import random as r
 import time
+import os
 
 def dead_state(width, height):
     board = []
@@ -28,20 +29,15 @@ def rand_state(width, height):
 
 
 def render(board_state):
-#    print(" " + "-"*len(board_state[0])*2 + " ")
 
     for row in board_state:
-#        line = "|"
         line = ""
         for col in row:
             if (col == 1):
                 line += "\u2588" * 2
             else:
                 line += "  "
-#        line += "|"
         print(line)
-
-#    print(" " + "-"*len(board_state[0])*2 + " ")
 
 
 def next_board_state(board_state):
@@ -98,12 +94,18 @@ def next_board_state(board_state):
 
 # run the game
 if __name__ == "__main__":
-    board = rand_state(60, 30)
-    render(board)
+
+    # Get the size of the terminal window
+    width = int((os.get_terminal_size()[0])/2) # Since we render cells as either two filled
+                                        # squares or two spaces, we half the usable width
+    height = int(os.get_terminal_size()[1])
+
+    board = rand_state(width, height)
 
     while True:
-        board = next_board_state(board)
         render(board)
-        time.sleep(0.2)
+        time.sleep(0.1)
+        os.system("cls" if os.name == "nt" else "clear") # Clear terminal window for cleaner rendering
+        board = next_board_state(board)
 
 
