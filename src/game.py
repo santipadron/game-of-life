@@ -4,6 +4,9 @@
 import random as r
 import time
 import os
+import art
+import getkey 
+
 
 def dead_state(width, height):
     board = []
@@ -92,20 +95,42 @@ def next_board_state(board_state):
     return updated_board_state
 
 
+def main_menu(width, height):
+    art.line(width, int(height/3), "*")
+    art.tprint("Conway's Game of Life")
+    print(" "*20 + "By Santiago Padron" + " "*20)
+    art.tprint("[X] Start")
+    art.tprint("[Q] Quit")
+
+
+def play_game(width, height):
+    board = rand_state(width, height)
+
+    while True:
+        key = getkey.getkey()
+        if key == "q": break
+        render(board)
+        time.sleep(0.1)
+        os.system("cls" if os.name == "nt" else "clear") # Clear terminal window for cleaner rendering
+        board = next_board_state(board)
+
+
+
 # run the game
 if __name__ == "__main__":
-
+    
     # Get the size of the terminal window
     width = int((os.get_terminal_size()[0])/2) # Since we render cells as either two filled
                                         # squares or two spaces, we half the usable width
     height = int(os.get_terminal_size()[1])
 
-    board = rand_state(width, height)
-
+    main_menu(width, height)
+    
     while True:
-        render(board)
-        time.sleep(0.1)
-        os.system("cls" if os.name == "nt" else "clear") # Clear terminal window for cleaner rendering
-        board = next_board_state(board)
+        key = getkey.getkey()
+
+        if key == "x":
+            play_game(width, height)
+        elif key == "q": break
 
 
