@@ -98,17 +98,13 @@ def next_board_state(board_state):
 def main_menu(width, height):
     art.line(width, int(height/3), "*")
     art.tprint("Conway's Game of Life")
-    print(" "*20 + "By Santiago Padron" + " "*20)
-    art.tprint("[X] Start")
-    art.tprint("[Q] Quit")
+    print("Welcome to Conway's Game of Life. This is a simple, terminal version of the classic game.\nPress [X] to Start\nPress [Q] to Quit")
 
 
 def play_game(width, height):
     board = rand_state(width, height)
 
     while True:
-        key = getkey.getkey()
-        if key == "q": break
         render(board)
         time.sleep(0.1)
         os.system("cls" if os.name == "nt" else "clear") # Clear terminal window for cleaner rendering
