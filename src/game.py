@@ -9,6 +9,7 @@ import getkey
 
 
 def dead_state(width, height):
+    """Generates a blank starting board based on the dimensions"""
     board = []
 
     for j in range(height):
@@ -18,12 +19,14 @@ def dead_state(width, height):
 
 
 def rand_state(width, height):
+    """Generates a random starting board based on the dimensions"""
+    THRESHOLD = 0.9
     board = dead_state(width, height)
 
     for i in range(height):
         for j in range(width):
             num = r.random()
-            if num > 0.9:
+            if num > THRESHOLD:
                 board[i][j] = 1
             else:
                 board[i][j] = 0
@@ -32,7 +35,13 @@ def rand_state(width, height):
 
 
 def render(board_state):
+    """
+    Renders the board state to the terminal. Uses two unicode characters U+2588 to display a live cell
+    and two spaces for a dead cell
 
+    Input: Current board_state: List(List(int))
+    Output: void
+    """
     for row in board_state:
         line = ""
         for col in row:
@@ -51,8 +60,8 @@ def next_board_state(board_state):
         - A live (1) cell with more than 3 neighbors dies (0)
         - A dead (0) cell with exactly 3 neighbors lives (1)
     
-    Input: board_state: [[int]]
-    Output: updated_board_state: [[int]]
+    Input: board_state: List(List(int)) 
+    Output: updated_board_state: List(List(int))
     """
     width = len(board_state[0])
     height = len(board_state)
@@ -78,7 +87,6 @@ def next_board_state(board_state):
             curr_state = board_state[i][j]
             next_state = 0
 
-            # Count neighbors
             neighbor_count = count_neighbors(i, j)
 
             # Check rules
@@ -89,19 +97,21 @@ def next_board_state(board_state):
             elif (curr_state == 0) and (neighbor_count == 3):
                 next_state = 1
 
-            #Update board
             updated_board_state[i][j] = next_state
 
     return updated_board_state
 
 
 def main_menu(width, height):
-    art.line(width, int(height/3), "*")
-    art.tprint("Conway's Game of Life")
+    """Displays main menu and prompts player to start or quit the game"""
+    art.lprint(width, 3, "*")
+    art.tprint("Conway's Game of Life", "tarty3")
+    art.lprint(width, 3, "*")
     print("Welcome to Conway's Game of Life. This is a simple, terminal version of the classic game.\nPress [X] to Start\nPress [Q] to Quit")
 
 
 def play_game(width, height):
+    """Plays the game by updating and rendering the board through each life cycle"""
     board = rand_state(width, height)
 
     while True:
@@ -120,7 +130,7 @@ if __name__ == "__main__":
                                         # squares or two spaces, we half the usable width
     height = int(os.get_terminal_size()[1])
 
-    main_menu(width, height)
+    main_menu(width*2, height)
     
     while True:
         key = getkey.getkey()
